@@ -1,12 +1,12 @@
-import path from 'path';
-import { defineConfig } from 'vite';
-import glsl from 'vite-plugin-glsl';
+import path from 'path'
+import { defineConfig } from 'vite'
+import glsl from 'vite-plugin-glsl'
 
 export default defineConfig(({ mode }) => {
 	console.log('⚓ ' + mode)
 	return {
 		root: './src',
-		base: mode === 'development' ? '/' : '/vanilla-three-template/',
+		base: mode === 'development' ? '/' : '/three-parallax/',
 		plugins: [glsl()],
 		build: {
 			rollupOptions: {
