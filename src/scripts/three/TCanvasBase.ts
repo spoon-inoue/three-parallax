@@ -7,7 +7,12 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
 
 export type Assets = {
-	[key in string]: { data?: THREE.Texture | GLTF; path: string; encoding?: boolean; flipY?: boolean }
+	[key in string]: {
+		data?: THREE.Texture | THREE.VideoTexture | GLTF
+		path: string
+		encoding?: boolean
+		flipY?: boolean
+	}
 }
 
 export abstract class TCanvasBase {
@@ -163,12 +168,25 @@ export abstract class TCanvasBase {
 
 				if (['jpg', 'png', 'webp'].includes(extension)) {
 					const texture = await textureLoader.loadAsync(v.path)
+					texture.userData.aspect = texture.image.width / texture.image.height
 					v.encoding && (texture.encoding = THREE.sRGBEncoding)
 					v.flipY !== undefined && (texture.flipY = v.flipY)
 					v.data = texture
 				} else if (['glb'].includes(extension)) {
 					const gltf = await gltfLoader.loadAsync(v.path)
 					v.data = gltf
+				} else if (['webm'].includes(extension)) {
+					const video = document.createElement('video')
+					video.src = v.path
+					video.preload = 'auto'
+					video.autoplay = true
+					video.muted = true
+					video.loop = true
+					await video.play()
+					const texture = new THREE.VideoTexture(video)
+					texture.userData.aspect = video.videoWidth / video.videoHeight
+					v.encoding && (texture.encoding = THREE.sRGBEncoding)
+					v.data = texture
 				}
 			})
 		)

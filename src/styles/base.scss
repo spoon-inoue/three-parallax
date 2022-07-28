@@ -6,7 +6,13 @@ html {
 
 body,
 main {
+	position: relative;
 	width: 100%;
 	height: 100%;
 	background-color: #1e1e1e;
+}
+
+main {
+	display: grid;
+	place-items: center;
 }
