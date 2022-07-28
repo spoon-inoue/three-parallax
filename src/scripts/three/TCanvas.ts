@@ -19,8 +19,8 @@ export class TCanvas extends TCanvasBase {
 	private target = new THREE.Vector2()
 
 	private datas = {
-		moveScaleX: 10,
-		moveScaleY: 5
+		moveScaleX: 1,
+		moveScaleY: 0.5
 	}
 
 	constructor(parentNode: ParentNode) {
@@ -31,6 +31,7 @@ export class TCanvas extends TCanvasBase {
 			this.setModel()
 			this.addEvent()
 			this.animate(this.update)
+			// this.animate()
 		})
 	}
 
@@ -39,68 +40,62 @@ export class TCanvas extends TCanvasBase {
 		this.camera.position.z = 1
 		this.scene.background = new THREE.Color('#500')
 
-		const folder = this.gui.addFolder('move scale')
-		folder.add(this.datas, 'moveScaleX', 0, 10, 0.1).name('x')
-		folder.add(this.datas, 'moveScaleY', 0, 10, 0.1).name('y')
+		const folder = this.gui.addFolder('all move scale')
+		folder.add(this.datas, 'moveScaleX', 0, 1, 0.01).name('x')
+		folder.add(this.datas, 'moveScaleY', 0, 1, 0.01).name('y')
 	}
 
 	private setModel = () => {
-		const textures = {
-			butterflies: this.assets.butterflies.data as THREE.Texture,
-			flowers: this.assets.flowers.data as THREE.Texture,
-			forest: this.assets.forest.data as THREE.Texture,
-			grass: this.assets.grass.data as THREE.Texture,
-			house3: this.assets.house3.data as THREE.Texture,
-			logo: this.assets.logo.data as THREE.Texture,
-			moutain: this.assets.moutain.data as THREE.Texture,
-			sky: this.assets.sky.data as THREE.Texture,
-			tree: this.assets.tree.data as THREE.Texture
-		}
-
-		const createMesh = (texture: THREE.Texture, scale = 1) => {
+		const createMesh = (name: string, scale = 1) => {
+			const texture = this.assets[name].data as THREE.Texture
 			const aspect = texture.image.width / texture.image.height
 			const geometry = new THREE.PlaneGeometry(aspect * scale, scale)
 			const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true })
-			return new THREE.Mesh(geometry, material)
+			const mesh = new THREE.Mesh(geometry, material)
+			mesh.name = name
+			return mesh
 		}
 
-		const sky = createMesh(textures.sky, 1)
-		sky.position.set(0, 0.45, 0)
-		this.imageGroup.add(sky)
+		const setMesh = (
+			mesh: THREE.Mesh,
+			position: { x: number; y: number; z: number },
+			moveScale: { mx: number; my: number }
+		) => {
+			mesh.position.set(position.x, position.y, position.z)
+			mesh.userData.position = mesh.position.clone()
+			mesh.userData.moveScale = { x: moveScale.mx, y: moveScale.my }
+			this.imageGroup.add(mesh)
 
-		const moutain = createMesh(textures.moutain, 0.32)
-		moutain.position.set(0, 0, 0.001)
-		this.imageGroup.add(moutain)
+			const folder = this.gui.addFolder(mesh.name).open(false)
+			folder.add(mesh.userData.moveScale, 'x', 0, 0.1, 0.001).name('move scale x')
+			folder.add(mesh.userData.moveScale, 'y', 0, 0.1, 0.001).name('move scale y')
+		}
 
-		const forest = createMesh(textures.forest, 0.14)
-		forest.position.set(0, -0.08, 0.002)
-		this.imageGroup.add(forest)
+		const sky = createMesh('sky', 1)
+		setMesh(sky, { x: 0, y: 0.45, z: 0 }, { mx: 0, my: 0.01 })
 
-		const grass = createMesh(textures.grass, 0.5)
-		grass.position.set(-0.05, -0.32, 0.003)
-		this.imageGroup.add(grass)
+		const moutain = createMesh('moutain', 0.32)
+		setMesh(moutain, { x: 0, y: 0, z: 0.001 }, { mx: 0.003, my: 0 })
 
-		const tree = createMesh(textures.tree, 0.6)
-		tree.position.set(0.13, -0.09, 0.004)
-		this.imageGroup.add(tree)
+		const forest = createMesh('forest', 0.14)
+		setMesh(forest, { x: 0, y: -0.08, z: 0.002 }, { mx: 0.008, my: 0 })
 
-		const house3 = createMesh(textures.house3, 0.8)
-		house3.position.set(0.45, -0.1, 0.005)
-		this.imageGroup.add(house3)
+		const grass = createMesh('grass', 0.5)
+		setMesh(grass, { x: -0.05, y: -0.32, z: 0.003 }, { mx: 0, my: 0 })
 
-		const flowers = createMesh(textures.flowers, 0.6)
-		flowers.position.set(0, -0.4, 0.006)
-		this.imageGroup.add(flowers)
+		const tree = createMesh('tree', 0.6)
+		setMesh(tree, { x: 0.13, y: -0.09, z: 0.004 }, { mx: 0, my: 0 })
 
-		const butterflies = createMesh(textures.butterflies, 0.2)
-		butterflies.position.set(0.45, -0.4, 0.007)
-		this.imageGroup.add(butterflies)
+		const house3 = createMesh('house3', 0.8)
+		setMesh(house3, { x: 0.45, y: -0.1, z: 0.005 }, { mx: 0, my: 0 })
+
+		const flowers = createMesh('flowers', 0.65)
+		setMesh(flowers, { x: 0, y: -0.35, z: 0.006 }, { mx: 0.05, my: 0.05 })
+
+		const butterflies = createMesh('butterflies', 0.2)
+		setMesh(butterflies, { x: 0.45, y: -0.4, z: 0.007 }, { mx: 0, my: 0 })
 
 		this.imageGroup.scale.multiplyScalar(2)
-
-		this.imageGroup.children.forEach((child) => {
-			child.userData.position = child.position.clone()
-		})
 
 		this.scene.add(this.imageGroup)
 	}
@@ -120,8 +115,11 @@ export class TCanvas extends TCanvasBase {
 	private update = () => {
 		this.imageGroup.children.forEach((child) => {
 			const pos = child.userData.position as THREE.Vector3
-			let x = pos.x + this.target.x * pos.z * this.datas.moveScaleX
-			let y = pos.y + this.target.y * pos.z * this.datas.moveScaleY
+			const moveScale = child.userData.moveScale
+
+			let x = pos.x - this.target.x * moveScale.x * this.datas.moveScaleX
+			let y = pos.y + this.target.y * moveScale.y * this.datas.moveScaleY
+
 			x = THREE.MathUtils.lerp(child.position.x, x, 0.1)
 			y = THREE.MathUtils.lerp(child.position.y, y, 0.1)
 
