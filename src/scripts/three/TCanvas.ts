@@ -35,7 +35,7 @@ export class TCanvas extends TCanvasBase {
 	private datas = {
 		moveScaleX: 0.42,
 		moveScaleY: 0.27,
-		cloudSpeed: 0.004
+		cloudSpeed: 0.007
 	}
 
 	constructor(parentNode: ParentNode) {
