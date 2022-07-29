@@ -35,7 +35,7 @@ export class TCanvas extends TCanvasBase {
 	private datas = {
 		moveScaleX: 0.42,
 		moveScaleY: 0.27,
-		cloudSpeed: 0.02
+		cloudSpeed: 0.004
 	}
 
 	constructor(parentNode: ParentNode) {
@@ -167,27 +167,27 @@ export class TCanvas extends TCanvasBase {
 		const folder = this.gui.addFolder('cloud').open(false)
 		folder.add(this.datas, 'cloudSpeed', 0, 0.1, 0.001).name('all speed')
 
-		const cloud1 = createMesh('cloud1', 0.2, true)
+		const cloud1 = createMesh('cloud1', 0.2)
 		setCloudMesh(cloud1, [-1, -0.15, 0.06], 6 / 6)
 		sky.add(cloud1)
 
-		const cloud2 = createMesh('cloud2', 0.3, true)
+		const cloud2 = createMesh('cloud2', 0.3)
 		setCloudMesh(cloud2, [0.8, -0.2, 0.05], 5 / 6)
 		sky.add(cloud2)
 
-		const cloud3 = createMesh('cloud3', 0.3, true)
+		const cloud3 = createMesh('cloud3', 0.3)
 		setCloudMesh(cloud3, [0.9, -0.18, 0.04], 4 / 6)
 		sky.add(cloud3)
 
-		const cloud4 = createMesh('cloud4', 0.25, true)
+		const cloud4 = createMesh('cloud4', 0.25)
 		setCloudMesh(cloud4, [0.5, 0, 0.03], 3 / 6)
 		sky.add(cloud4)
 
-		const cloud5 = createMesh('cloud5', 0.35, true)
+		const cloud5 = createMesh('cloud5', 0.35)
 		setCloudMesh(cloud5, [-0.6, -0.05, 0.02], 2 / 6)
 		sky.add(cloud5)
 
-		const cloud6 = createMesh('cloud6', 0.4, true)
+		const cloud6 = createMesh('cloud6', 0.4)
 		setCloudMesh(cloud6, [-0.55, -0.35, 0.01], 1 / 6)
 		sky.add(cloud6)
 
