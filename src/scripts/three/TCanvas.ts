@@ -142,13 +142,13 @@ export class TCanvas extends TCanvasBase {
 		setMesh(grass, { x: -0.05, y: -0.32, z: 0.3 }, { mx: 0.008, my: 0.003 })
 
 		const tree = createMesh('tree', 0.6)
-		setMesh(tree, { x: 0.13, y: -0.09, z: 0.4 }, { mx: 0.012, my: 0 })
+		setMesh(tree, { x: 0.13, y: -0.09, z: 0.4 }, { mx: 0.007, my: 0 })
 
 		const house3 = createMesh('house3', 0.8)
 		setMesh(house3, { x: 0.45, y: -0.1, z: 0.5 }, { mx: 0.009, my: 0 })
 
 		const flowers = createSwayMesh('flowers', 0.65)
-		setMesh(flowers, { x: 0, y: -0.35, z: 0.6 }, { mx: 0.1, my: 0.067 })
+		setMesh(flowers, { x: 0, y: -0.45, z: 0.6 }, { mx: 0.01, my: 0.067 })
 		this.flowersMaterial = flowers.material
 
 		const butterflies = createMesh('butterflies', 0.2)
