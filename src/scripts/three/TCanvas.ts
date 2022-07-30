@@ -11,7 +11,7 @@ export class TCanvas extends TCanvasBase {
 		forest: { path: publicPath('/assets/forest.png'), encoding: true },
 		grass: { path: publicPath('/assets/grass.png'), encoding: true },
 		house3: { path: publicPath('/assets/house3.png'), encoding: true },
-		moutain: { path: publicPath('/assets/moutain.png'), encoding: true },
+		mountain: { path: publicPath('/assets/mountain.png'), encoding: true },
 		tree: { path: publicPath('/assets/tree.png'), encoding: true },
 		// sky
 		sky: { path: publicPath('/assets/sky_without_clouds.jpg'), encoding: true },
@@ -132,8 +132,8 @@ export class TCanvas extends TCanvasBase {
 		setMesh(sky, { x: 0, y: 0.5, z: 0 }, { mx: 0.009, my: 0 })
 		this.skyWidth = sky.geometry.parameters.width
 
-		const moutain = createMesh('moutain', 0.32)
-		setMesh(moutain, { x: 0, y: 0, z: 0.1 }, { mx: 0.01, my: 0 })
+		const mountain = createMesh('mountain', 0.32)
+		setMesh(mountain, { x: 0, y: 0, z: 0.1 }, { mx: 0.01, my: 0 })
 
 		const forest = createMesh('forest', 0.14)
 		setMesh(forest, { x: 0, y: -0.08, z: 0.2 }, { mx: 0.008, my: 0 })
