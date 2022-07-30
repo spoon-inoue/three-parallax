@@ -159,7 +159,7 @@ export class TCanvas extends TCanvasBase {
 		smoke.position.set(0.158, 0.725, 0.01)
 		house3.add(smoke)
 
-		const moveButterflies = createVideoMesh('moveButterflies', 0.45)
+		const moveButterflies = createVideoMesh('moveButterflies', 0.35)
 		moveButterflies.position.set(0.4, 0.1, 0.01)
 		flowers.add(moveButterflies)
 
