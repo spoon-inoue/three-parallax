@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
 		build: {
 			rollupOptions: {
 				input: {
-					home: path.resolve(__dirname, './src/index.html'),
+					home01: path.resolve(__dirname, './src/01/index.html'),
 					page02: path.resolve(__dirname, './src/02/index.html'),
 					page03: path.resolve(__dirname, './src/03/index.html')
 				}
