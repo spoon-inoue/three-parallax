@@ -172,7 +172,7 @@ export class TCanvas2nightly extends TCanvasBase {
 		// setMesh(butterflies, { x: 0.45, y: -0.4, z: 0.7 }, { mx: 0.071, my: 0.036 })
 
 		// movie
-		const smoke = createVideoMesh('smoke', 0.5, 0.5)
+		const smoke = createVideoMesh('smoke', 0.5, 0.3)
 		smoke.position.set(0.155, 0.585, 0.01)
 		house3.add(smoke)
 

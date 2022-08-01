@@ -101,10 +101,10 @@ export class TCanvas extends TCanvasBase {
 			folder && folder.add(mesh.userData, 'speed', 0, 1, 0.01).name(mesh.name)
 		}
 
-		const createVideoMesh = (name: string, scale = 1) => {
+		const createVideoMesh = (name: string, scale = 1, opacityValue = 1) => {
 			const texture = this.assets[name].data as THREE.VideoTexture
 			const geometry = new THREE.PlaneGeometry(texture.userData.aspect * scale, scale)
-			const material = new THREE.MeshBasicMaterial({ map: texture, alphaMap: texture, transparent: true })
+			const material = new THREE.MeshBasicMaterial({ map: texture, alphaMap: texture, transparent: true, opacity: opacityValue  })
 			const mesh = new THREE.Mesh(geometry, material)
 			mesh.name = name
 			return mesh
@@ -155,7 +155,7 @@ export class TCanvas extends TCanvasBase {
 		setMesh(butterflies, { x: 0.45, y: -0.4, z: 0.7 }, { mx: 0.071, my: 0.036 })
 
 		// movie
-		const smoke = createVideoMesh('smoke', 0.7)
+		const smoke = createVideoMesh('smoke', 0.7, 0.7)
 		smoke.position.set(0.158, 0.725, 0.01)
 		house3.add(smoke)
 
