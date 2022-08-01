@@ -9,8 +9,8 @@ class App {
 	constructor() {
 		const parentNode = document.querySelector('.three-container-wrapper--01')!
 		const parentNode2 = document.querySelector('.three-container-wrapper--02')!
-		this.canvas2 = new TCanvas2(parentNode2)
-		this.canvas2nightly = new TCanvas2nightly(parentNode)
+		this.canvas2 = new TCanvas2(parentNode)
+		this.canvas2nightly = new TCanvas2nightly(parentNode2)
 		this.addEvents()
 		gsap.set(parentNode2, {
 			autoAlpha: 0,
