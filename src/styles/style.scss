@@ -1,21 +1,59 @@
-.three-container {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
+.three-container,
+.three-container-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .logo {
-	position: absolute;
-	top: 7%;
-	width: 30%;
-	height: fit-content;
-	// border: 1px solid red;
+  position: absolute;
+  top: 7%;
+  width: 30%;
+  height: fit-content;
+  // border: 1px solid red;
 
-	display: flex;
-	gap: 2rem;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu {
+  display: grid;
+  place-items: center;
+  gap: 2rem;
+  text-align: center;
+  width: 100%;
+  li {
+    width: 100%;
+    a {
+      font-family: Geneva, Tahoma, sans-serif;
+      font-size: 40px;
+      text-transform: uppercase;
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      transition: all ease-out 0.5s;
+      width: 100%;
+      padding-top: 10px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #666;
+      span {
+        font-size: 15px;
+        display: block;
+      }
+      &:hover {
+        color: #aaa;
+      }
+    }
+    &:first-of-type {
+      a {
+        border-top: 1px solid #666;
+        padding-top: 30px;
+      }
+    }
+  }
 }

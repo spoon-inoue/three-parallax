@@ -11,7 +11,7 @@ export class TCanvas extends TCanvasBase {
 		forest: { path: publicPath('/assets/forest.png'), encoding: true },
 		grass: { path: publicPath('/assets/grass.png'), encoding: true },
 		house3: { path: publicPath('/assets/house3.png'), encoding: true },
-		moutain: { path: publicPath('/assets/moutain.png'), encoding: true },
+		mountain: { path: publicPath('/assets/mountain.png'), encoding: true },
 		tree: { path: publicPath('/assets/tree.png'), encoding: true },
 		// sky
 		sky: { path: publicPath('/assets/sky_without_clouds.jpg'), encoding: true },
@@ -101,10 +101,10 @@ export class TCanvas extends TCanvasBase {
 			folder && folder.add(mesh.userData, 'speed', 0, 1, 0.01).name(mesh.name)
 		}
 
-		const createVideoMesh = (name: string, scale = 1) => {
+		const createVideoMesh = (name: string, scale = 1, opacityValue = 1) => {
 			const texture = this.assets[name].data as THREE.VideoTexture
 			const geometry = new THREE.PlaneGeometry(texture.userData.aspect * scale, scale)
-			const material = new THREE.MeshBasicMaterial({ map: texture, alphaMap: texture, transparent: true })
+			const material = new THREE.MeshBasicMaterial({ map: texture, alphaMap: texture, transparent: true, opacity: opacityValue  })
 			const mesh = new THREE.Mesh(geometry, material)
 			mesh.name = name
 			return mesh
@@ -132,8 +132,8 @@ export class TCanvas extends TCanvasBase {
 		setMesh(sky, { x: 0, y: 0.5, z: 0 }, { mx: 0.009, my: 0 })
 		this.skyWidth = sky.geometry.parameters.width
 
-		const moutain = createMesh('moutain', 0.32)
-		setMesh(moutain, { x: 0, y: 0, z: 0.1 }, { mx: 0.01, my: 0 })
+		const mountain = createMesh('mountain', 0.32)
+		setMesh(mountain, { x: 0, y: 0, z: 0.1 }, { mx: 0.01, my: 0 })
 
 		const forest = createMesh('forest', 0.14)
 		setMesh(forest, { x: 0, y: -0.08, z: 0.2 }, { mx: 0.008, my: 0 })
@@ -142,24 +142,24 @@ export class TCanvas extends TCanvasBase {
 		setMesh(grass, { x: -0.05, y: -0.32, z: 0.3 }, { mx: 0.008, my: 0.003 })
 
 		const tree = createMesh('tree', 0.6)
-		setMesh(tree, { x: 0.13, y: -0.09, z: 0.4 }, { mx: 0.012, my: 0 })
+		setMesh(tree, { x: 0.13, y: -0.09, z: 0.4 }, { mx: 0.007, my: 0 })
 
 		const house3 = createMesh('house3', 0.8)
 		setMesh(house3, { x: 0.45, y: -0.1, z: 0.5 }, { mx: 0.009, my: 0 })
 
 		const flowers = createSwayMesh('flowers', 0.65)
-		setMesh(flowers, { x: 0, y: -0.35, z: 0.6 }, { mx: 0.1, my: 0.067 })
+		setMesh(flowers, { x: 0, y: -0.45, z: 0.6 }, { mx: 0.01, my: 0.067 })
 		this.flowersMaterial = flowers.material
 
 		const butterflies = createMesh('butterflies', 0.2)
 		setMesh(butterflies, { x: 0.45, y: -0.4, z: 0.7 }, { mx: 0.071, my: 0.036 })
 
 		// movie
-		const smoke = createVideoMesh('smoke', 0.7)
+		const smoke = createVideoMesh('smoke', 0.7, 0.7)
 		smoke.position.set(0.158, 0.725, 0.01)
 		house3.add(smoke)
 
-		const moveButterflies = createVideoMesh('moveButterflies', 0.45)
+		const moveButterflies = createVideoMesh('moveButterflies', 0.35)
 		moveButterflies.position.set(0.4, 0.1, 0.01)
 		flowers.add(moveButterflies)
 
